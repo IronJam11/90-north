@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import fetchUserDetails from '../api/FetchUserDetails';
+import FetchAllUsers from '../api/AllUsers';
 
 export default function LeftMenu() {
   const [isOpen, setIsOpen] = useState(false);
@@ -7,13 +7,17 @@ export default function LeftMenu() {
 
   useEffect(() => {
     const fetchAllUsers = async () => {
-      const allUsersDataResponse = await fetchUserDetails();
-      setAllUsersData(allUsersDataResponse.users);
-      console.log("all users",allUsersDataResponse);
-    }
+      try {
+        const allUsersDataResponse = await FetchAllUsers();
+        setAllUsersData(allUsersDataResponse.users);
+        console.log("All users fetched:", allUsersDataResponse);
+      } catch (error) {
+        console.error("Error fetching users:", error);
+      }
+    };
+
     fetchAllUsers();
-  },[]);
-    
+  }, []);
 
   return (
     <>
@@ -29,16 +33,27 @@ export default function LeftMenu() {
                 HomePage
               </a>
             </li>
-            <li>
-              <a href="#" className="block text-gray-300 hover:text-white">
-                Menu Item 2
-              </a>
-            </li>
-            <li>
-              <a href="#" className="block text-gray-300 hover:text-white">
-                Menu Item 3
-              </a>
-            </li>
+            <br />
+            <b>Chat with:</b>
+            {/* Map user data */}
+            {allUsersData.length > 0 ? (
+              allUsersData.map((user, index) => (
+                <li key={index} className="flex items-center space-x-4">
+                  {/* Profile Picture */}
+                  <img
+                    src={user.profile_picture || 'https://via.placeholder.com/40?text=User'}
+                    alt="Profile"
+                    className="w-10 h-10 rounded-full"
+                  />
+                  {/* User Info */}
+                  <a href={`${user.username}`} className="block text-gray-300 hover:text-white">
+                    {user.username} <span className="text-gray-500"></span>
+                  </a>
+                </li>
+              ))
+            ) : (
+              <p className="text-gray-400">No users available</p>
+            )}
           </ul>
         </div>
       </div>

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import fetchUserDetails from "../api/FetchUserDetails";// Import the fetchUserDetails function
 import handleLogout from "../api/handleLogout";
 import { useNavigate } from 'react-router-dom';
+import FetchAllUsers from "../api/AllUsers";
 
 
 export default function Navbar() {
