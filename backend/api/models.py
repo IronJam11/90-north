@@ -27,14 +27,14 @@ class CustomUserManager(UserManager):
 
 class User(AbstractBaseUser,PermissionsMixin):
     email = models.EmailField(unique = True,default='')
-    enrollmentNo = models.BigIntegerField(unique=True)
+    name = models.CharField(max_length=100,default='User')
     username = models.CharField(max_length=100,unique=True)
     bio = models.TextField(blank=True,max_length=500)
     date_joined = models.DateTimeField(default=timezone.now)
     objects = CustomUserManager()
     USERNAME_FIELD = 'email'
     EMAIL_FIELD = 'email'
-    REQUIRED_FIELDS = ['enrollmentNo']
+    REQUIRED_FIELDS = ['username',"name"]
     class Meta:
         verbose_name = 'User'
         verbose_name_plural = 'Users'
