@@ -3,6 +3,7 @@ import { Routes, Route } from 'react-router-dom';
 import Homepage from './auth/Homepage';
 import LoginPage from './auth/LoginPage';
 import RegisterPage from './auth/Registerpage';
+import ChatPage from './chat/ChatPage';
 
 export default function MainContent() {
   return (
@@ -12,7 +13,7 @@ export default function MainContent() {
           <Route path="/" element={<Homepage />} />
           <Route path="/loginpage" element={<LoginPage />} />
           <Route path="/registerpage" element={<RegisterPage />} />
-
+          <Route path="/:username1/:username2" element={<ChatPage/>} />
           {/* <Route path="/registerpage" element={<RegisterPage />} /> */}
         </Routes>
       </div>
