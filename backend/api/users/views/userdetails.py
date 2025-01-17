@@ -17,7 +17,7 @@ class GetUserFromTokenView(APIView):
             return Response({"error": "Token not provided or incorrect format"}, status=status.HTTP_400_BAD_REQUEST)
         token = auth_header.split(' ')[1] 
         user_details = get_userdetails_from_token(token)
-        if 'error' in user_details:  # Check for any error messages
+        if 'error' in user_details: 
             return Response(user_details, status=status.HTTP_400_BAD_REQUEST)
         return Response(user_details, status=status.HTTP_200_OK)
 
