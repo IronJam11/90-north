@@ -17,13 +17,13 @@ def store_chat_message(request):
     try:
         data = json.loads(request.body)
         room = data.get('room')
-        enrollmentNo = data.get('enrollmentNo')
+        username = data.get('username')
         body = data.get('body')
 
         # Ensure all required fields are present
-        if room and enrollmentNo and body:
+        if room and username and body:
             message = {
-                'user': enrollmentNo,
+                'username': username,
                 'body': body,
                 'timestamp': time.time()
             }
