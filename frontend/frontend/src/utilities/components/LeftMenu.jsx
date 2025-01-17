@@ -1,7 +1,19 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import fetchUserDetails from '../api/FetchUserDetails';
 
 export default function LeftMenu() {
   const [isOpen, setIsOpen] = useState(false);
+  const [allUsersData, setAllUsersData] = useState([]);
+
+  useEffect(() => {
+    const fetchAllUsers = async () => {
+      const allUsersDataResponse = await fetchUserDetails();
+      setAllUsersData(allUsersDataResponse.users);
+      console.log("all users",allUsersDataResponse);
+    }
+    fetchAllUsers();
+  },[]);
+    
 
   return (
     <>
