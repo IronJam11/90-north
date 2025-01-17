@@ -3,8 +3,9 @@ from django.core.files.storage import default_storage
 from api.models import User
 from rest_framework.response import Response  # type: ignore
 from rest_framework import status
+from rest_framework.decorators import api_view
 
-
+@api_view(['GET'])
 def get_all_users(request):
     if request.method == 'GET':
         auth_header = request.headers.get('Authorization')
@@ -24,7 +25,6 @@ def get_all_users(request):
                 'email':user.email,
                 'bio':user.bio,
                 'date_joined':user.date_joined,
-                'name':user.name,
             })
         return JsonResponse({'users': user_details}, safe=False)
 

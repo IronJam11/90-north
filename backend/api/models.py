@@ -30,6 +30,7 @@ class User(AbstractBaseUser,PermissionsMixin):
     name = models.CharField(max_length=100,default='User')
     username = models.CharField(max_length=100,unique=True)
     bio = models.TextField(blank=True,max_length=500)
+    profile_picture = models.ImageField(upload_to='profile_pictures/',null=True,blank=True)
     date_joined = models.DateTimeField(default=timezone.now)
     objects = CustomUserManager()
     USERNAME_FIELD = 'email'
