@@ -37,7 +37,6 @@ class TokenCheckView(APIView):
                     'user': {
                         'id': user.id,
                         'email': user.email,
-                        'enrollmentNo': user.enrollmentNo,
                     }
                 })
 
