@@ -58,11 +58,11 @@ function AppContent() {
             <Navbar />
           </div>
           <div className="flex flex-1 pt-20 pb-16 overflow-hidden">
-            <div className="fixed top-20 left-0 bottom-16 w-64 ">
+            <div className="fixed top-20 left-0 bottom-16 w-40 ">
               <LeftMenu />
             </div>
 
-            <div className="flex-1 ml-30 mr-70 pt-4 pb-4 overflow-auto">
+            <div className="flex-1 ml-5 mr-70 pt-4 pb-4 overflow-auto">
               <MainContent />
             </div>
 

@@ -5,7 +5,7 @@ import Cookies from 'js-cookie';
 import fetchUserDetails from '../../utilities/api/FetchUserDetails';
 
 function ChatPage() {
-  const {username2} = useParams();
+  const { username2 } = useParams();
   const username1 = Cookies.get('username');
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState('');
@@ -17,7 +17,6 @@ function ChatPage() {
   const unsavedMessagesIntervalRef = useRef(null);
 
   useEffect(() => {
-
     // Fetch user details to get the profile picture
     const getUserDetails = async () => {
       const userDetails = await fetchUserDetails();
@@ -88,22 +87,30 @@ function ChatPage() {
   const sendUnsavedMessages = async () => {
     if (unsavedMessagesRef.current.length > 0) {
       try {
+        // Flag to track if messages are being sent
+        let sendingMessages = false;
+
         await Promise.all(
           unsavedMessagesRef.current.map(async (message) => {
-            const messageData2 = {
-              body: message.content,
-              username: message.username,
-              room: `chat_${[username1, username2].sort().join('_')}`,
-              time_added: new Date().toISOString(),
-            };
-            await axios.post(`http://127.0.0.1:8000/chats/store/`, messageData2,
-              {
+            if (!message.isSent && !sendingMessages) {
+              sendingMessages = true; // Set the flag to true when sending
+              const messageData2 = {
+                body: message.content,
+                username: message.username,
+                room: `chat_${[username1, username2].sort().join('_')}`,
+                time_added: new Date().toISOString(),
+              };
+
+              await axios.post(`http://127.0.0.1:8000/chats/store/`, messageData2, {
                 headers: {
                   'Content-Type': 'application/json',
                   'Authorization': `Bearer ${Cookies.get('accessToken')}`,
                 },
-              }
-            );
+              });
+
+              // Mark the message as sent
+              message.isSent = true;
+            }
           })
         );
         unsavedMessagesRef.current = []; // Clear after successful save
@@ -123,7 +130,8 @@ function ChatPage() {
       room_slug: `chat_${[username1, username2].sort().join('_')}`,
       time_added: new Date().toISOString(),
       isLocal: true,
-      user: username1
+      user: username1,
+      isSent: false,  // Track if the message has been sent
     };
 
     setNewMessage('');
@@ -145,13 +153,13 @@ function ChatPage() {
 
     typingTimeoutRef.current = setTimeout(() => {
       sendUnsavedMessages();
-    }, 100);  // Set the interval to 0.5 seconds (500 ms)
+    }, 500);  // Set the interval to 0.5 seconds (500 ms)
   };
 
   const handleDeleteMessages = async () => {
     const roomName = `chat_${[username1, username2].sort().join('_')}`;
     try {
-      await axios.delete(`http://127.0.0.1:8000/chats/${roomName}/`);
+      await axios.delete(`http://127.0.0.1:8000/chats/delete/${roomName}/`);
       setMessages([]); // Clear the chat in the frontend
     } catch (error) {
       console.error('Error deleting messages:', error);
@@ -167,7 +175,7 @@ function ChatPage() {
   useEffect(() => {
     unsavedMessagesIntervalRef.current = setInterval(() => {
       sendUnsavedMessages();
-    }, 100);  // Sends unsaved messages every 0.5 seconds
+    }, 500);  // Sends unsaved messages every 0.5 seconds
 
     return () => {
       if (typingTimeoutRef.current) {
@@ -189,44 +197,56 @@ function ChatPage() {
   }, []);
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center">
-      <div className="p-10 lg:p-20 text-center">
-        <h1 className="text-4xl lg:text-5xl text-black font-bold">
+    <div className="min-h-screen flex flex-col items-center py-10">
+      <div className="p-6 lg:p-12 text-center">
+        <h1 className="text-4xl lg:text-5xl text-teal-700 font-bold">
           Chat with {username2}
         </h1>
       </div>
-      <div className="lg:w-3/4 w-full mx-4 lg:mx-auto p-4 bg-white rounded-2xl shadow-lg">
+  
+      <div className="lg:w-3/4 w-full mx-4 lg:mx-auto p-6 bg-white rounded-3xl shadow-xl">
         <div
-          className="chat-messages space-y-3 overflow-y-auto max-h-96 p-4"
+          className="chat-messages space-y-4 overflow-y-auto max-h-96 min-h-96 p-6 border border-gray-200 rounded-2xl bg-gray-50"
           ref={chatMessagesRef}
         >
-          {messages.map((msg, index) => (
-            <div
-              key={index}
-              className={`${
-                msg.username === username1
-                  ? 'bg-teal-500 text-white self-end'
-                  : 'bg-gray-200 text-black self-start'
-              } rounded-lg p-3 max-w-xs lg:max-w-md break-words`}
-            >
-              <b>{msg.username}</b>:  {msg.body ? msg.body : msg.content}
+          {messages.length > 0 ? (
+            messages.map((msg, index) => (
+              <div
+                key={index}
+                className={`flex ${
+                  msg.username === username1 ? "justify-end" : "justify-start"
+                }`}
+              >
+                <div
+                  className={`${
+                    msg.username === username1
+                      ? "bg-teal-500 text-white"
+                      : "bg-gray-200 text-black"
+                  } rounded-lg p-4 max-w-xs lg:max-w-md break-words shadow-md`}
+                >
+                  <b>{msg.username}</b>: {msg.body ? msg.body : msg.content}
+                </div>
+              </div>
+            ))
+          ) : (
+            <div className="text-gray-500 text-center mt-4">
+              No messages yet. Start the conversation!
             </div>
-          ))}
+          )}
         </div>
       </div>
-
-      {/* New Delete Button */}
-      <div className="lg:w-3/4 w-full mx-4 lg:mx-auto mt-4">
+  
+      <div className="lg:w-3/4 w-full mx-4 lg:mx-auto mt-6">
         <button
           onClick={handleDeleteMessages}
-          className="px-5 py-3 rounded-xl text-white bg-red-600 hover:bg-red-700 transition-all duration-200 shadow-lg"
+          className="px-6 py-3 rounded-full text-white bg-red-600 hover:bg-red-700 transition-all duration-200 shadow-lg w-full lg:w-auto"
         >
           Delete All Messages
         </button>
       </div>
-
-      <div className="lg:w-3/4 w-full mt-6 mx-4 lg:mx-auto p-4 bg-white rounded-2xl shadow-lg">
-        <form onSubmit={handleSendMessage} className="flex">
+  
+      <div className="lg:w-3/4 w-full mt-6 mx-4 lg:mx-auto p-6 bg-white rounded-3xl shadow-xl">
+        <form onSubmit={handleSendMessage} className="flex space-x-4">
           <input
             type="text"
             value={newMessage}
@@ -234,14 +254,14 @@ function ChatPage() {
               setNewMessage(e.target.value);
               resetTypingTimeout();
             }}
-            className="flex-1 px-4 py-3 mr-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-teal-500"
-            placeholder="Your message..."
+            className="flex-1 px-4 py-3 rounded-full border border-gray-300 focus:outline-none focus:ring-2 focus:ring-teal-500 text-gray-700"
+            placeholder="Type your message here..."
           />
           <button
             type="submit"
-            className="px-5 py-3 rounded-xl text-white bg-teal-600 hover:bg-teal-700 transition-all duration-200 shadow-lg"
+            className="px-6 py-3 rounded-full text-white bg-teal-600 hover:bg-teal-700 transition-all duration-200 shadow-lg"
           >
-            Submit
+            Send
           </button>
         </form>
       </div>

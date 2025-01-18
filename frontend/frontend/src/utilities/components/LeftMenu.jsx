@@ -41,12 +41,16 @@ export default function LeftMenu() {
                 <li key={index} className="flex items-center space-x-4">
                   {/* Profile Picture */}
                   <img
-                    src={user.profile_picture || 'https://via.placeholder.com/40?text=User'}
+                    src={
+                      user.profile_picture
+                        ? `http://127.0.0.1:8000${user.profile_picture}`
+                        : 'https://cdn-icons-png.flaticon.com/512/17/17004.png'
+                    }
                     alt="Profile"
                     className="w-10 h-10 rounded-full"
                   />
                   {/* User Info */}
-                  <a href={`${user.username}`} className="block text-gray-300 hover:text-white">
+                  <a href={`/chat/${user.username}`} className="block text-gray-300 hover:text-white">
                     {user.username} <span className="text-gray-500"></span>
                   </a>
                 </li>
