@@ -15,8 +15,6 @@ build/
 # Django
 *.local_settings.py
 *.env
-db.sqlite3
-media/
 staticfiles/
 
 # Ignore Django migrations
