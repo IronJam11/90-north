@@ -37,7 +37,7 @@ To set up the application locally, follow the steps below:
 6. **Run the server locally**  
    Install the required Python packages:
    ```bash
-   python3 manage.py migrate
+   python3 manage.py runserver
    ```
 ---
 
