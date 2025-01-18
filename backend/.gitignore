@@ -9,7 +9,6 @@ build/
 *.log
 *.pot
 *.mo
-*.sqlite3
 *.db
 
 # Django
