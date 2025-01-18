@@ -13,8 +13,14 @@ export default function MainContent() {
           <Route path="/" element={<Homepage />} />
           <Route path="/loginpage" element={<LoginPage />} />
           <Route path="/registerpage" element={<RegisterPage />} />
-          <Route path="/chat/:username2" element={<ChatPage/>} />
-          {/* <Route path="/registerpage" element={<RegisterPage />} /> */}
+          <Route path="/chat/:username2" element={<ChatPage />} />
+          {/* Catch-all route for invalid URLs */}
+          <Route 
+            path="*" 
+            element={
+             <Homepage/>
+            } 
+          />
         </Routes>
       </div>
     </div>

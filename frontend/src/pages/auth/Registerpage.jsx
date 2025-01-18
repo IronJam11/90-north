@@ -65,7 +65,7 @@ function RegisterPage() {
     }
 
     try {
-      const response = await axios.post(`${HOST_NAME}users/register/`, formData, {
+      const response = await axios.post(`${HOST_NAME}/users/register/`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },

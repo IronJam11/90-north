@@ -5,7 +5,7 @@ import { HOST_NAME } from '../../constants/hostname';
 
 const fetchUserDetails = async () => {
   try {
-    const response = await axios.get(`${HOST_NAME}users/user-details/`, {
+    const response = await axios.get(`${HOST_NAME}/users/user-details/`, {
       withCredentials: true, // Send credentials with the request
       headers: {
         'Authorization': `Bearer ${Cookies.get('accessToken')}`,

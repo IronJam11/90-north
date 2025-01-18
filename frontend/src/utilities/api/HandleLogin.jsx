@@ -5,7 +5,7 @@ import { HOST_NAME } from '../../constants/hostname';
 const handleLogin = async (e, email, password, navigate) => {
   e.preventDefault();
   try {
-    const response = await axios.post(`${HOST_NAME}users/login/`, {
+    const response = await axios.post(`${HOST_NAME}/users/login/`, {
       email,
       password,
     }, {

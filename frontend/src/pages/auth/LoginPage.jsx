@@ -7,7 +7,6 @@ function LoginPage() {
   const [displayText, setDisplayText] = useState('');
   const navigate = useNavigate();
 
-  // Typing animation effect
   useEffect(() => {
     const phrases = [
       'Chat effortlessly',
@@ -81,14 +80,14 @@ function LoginPage() {
           </button>
         </form>
 
-        {/* Divider with text */}
+
         <div className="flex items-center my-6">
           <hr className="flex-grow border-gray-300" />
           <span className="mx-2 text-sm text-gray-500">OR</span>
           <hr className="flex-grow border-gray-300" />
         </div>
 
-        {/* Footer with subtle animation */}
+
         <div className="mt-6 text-sm text-gray-400 text-center animate-fadeIn">
           By logging in, you agree to our <a href="#" className="text-indigo-600 hover:underline">Terms of Service</a>
         </div>

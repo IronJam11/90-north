@@ -15,9 +15,14 @@ function ChatPage() {
   const typingTimeoutRef = useRef(null);
   const unsavedMessagesRef = useRef([]);
   const unsavedMessagesIntervalRef = useRef(null);
+  
 
   useEffect(() => {
     // Fetch user details to get the profile picture
+    if(Cookies.get('accessToken') == null) {
+          alert("You session timed out or you did not login. Please login again.");
+          window.location.href = '/loginpage';
+        }
     const getUserDetails = async () => {
       const userDetails = await fetchUserDetails();
       console.log(userDetails);
@@ -67,7 +72,7 @@ function ChatPage() {
   const fetchMessages = async () => {
     const roomName = `chat_${[username1, username2].sort().join('_')}`;
     try {
-      const response = await axios.get(`${HOST_NAME}chats/get/${roomName}/`);
+      const response = await axios.get(`${HOST_NAME}/chats/get/${roomName}/`);
       setMessages(response.data.messages);
 
       if (chatMessagesRef.current) {
@@ -101,7 +106,7 @@ function ChatPage() {
                 time_added: new Date().toISOString(),
               };
 
-              await axios.post(`${HOST_NAME}chats/store/`, messageData2, {
+              await axios.post(`${HOST_NAME}/chats/store/`, messageData2, {
                 headers: {
                   'Content-Type': 'application/json',
                   'Authorization': `Bearer ${Cookies.get('accessToken')}`,
@@ -159,7 +164,7 @@ function ChatPage() {
   const handleDeleteMessages = async () => {
     const roomName = `chat_${[username1, username2].sort().join('_')}`;
     try {
-      await axios.delete(`${HOST_NAME}chats/delete/${roomName}/`);
+      await axios.delete(`${HOST_NAME}/chats/delete/${roomName}/`);
       setMessages([]); // Clear the chat in the frontend
     } catch (error) {
       console.error('Error deleting messages:', error);

@@ -7,7 +7,7 @@ export const handleLogout = async (navigate) => {
 
   try {
     // Send the refresh token in the body for logout
-    const response = await axios.post(`${HOST_NAME}users/logout/`, {
+    const response = await axios.post(`${HOST_NAME}/users/logout/`, {
       refresh_token: refreshToken 
     }, {
       withCredentials: true,

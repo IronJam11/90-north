@@ -63,7 +63,6 @@ export default function Homepage() {
           <h3 className="text-xl font-semibold text-gray-800">Contact Information</h3>
           <ul className="mt-4 text-gray-600">
             <li>Email: {userData.email}</li>
-            {/* Add other fields as necessary */}
           </ul>
         </div>
       </div>
