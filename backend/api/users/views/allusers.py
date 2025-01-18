@@ -18,6 +18,9 @@ def get_all_users(request):
         print(users)
 
         for user in users: 
+            profile_picture_url = default_storage.url(user.profile_picture.name) if user.profile_picture else None
+            if profile_picture_url == "": 
+                 profile_picture_url = None
             user_details.append({
                 'id': user.id,
                 'name':user.name,
@@ -25,6 +28,7 @@ def get_all_users(request):
                 'email':user.email,
                 'bio':user.bio,
                 'date_joined':user.date_joined,
+                'profile_picture': profile_picture_url
             })
         return JsonResponse({'users': user_details}, safe=False)
 
