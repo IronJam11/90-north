@@ -47,7 +47,7 @@ function AppContent() {
     };
   }, []);
 
-  const isAuthPage = location.pathname === '/loginpage' || location.pathname === '/registerpage';
+  const isAuthPage = location.pathname === '/loginpage' || location.pathname === '/registerpage' || location.pathname === '/loginpage/';
 
   return (
     <div className="w-full h-full overflow-hidden">

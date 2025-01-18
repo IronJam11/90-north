@@ -45,7 +45,7 @@ export default function Homepage() {
       <div className="bg-white shadow-lg rounded-lg overflow-hidden">
         <div className="flex items-center p-6">
           <img
-            src={`http://127.0.0.1:8000${userData.profile_picture}`|| 'https://via.placeholder.com/150'}
+            src={userData.profile_picture ? `http://127.0.0.1:8000${userData.profile_picture}`: 'https://cdn-icons-png.flaticon.com/512/17/17004.png'}
             alt="Profile"
             className="w-32 h-32 rounded-full border-4 border-gray-200"
           />
