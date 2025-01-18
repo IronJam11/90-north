@@ -13,7 +13,7 @@ export default function MainContent() {
           <Route path="/" element={<Homepage />} />
           <Route path="/loginpage" element={<LoginPage />} />
           <Route path="/registerpage" element={<RegisterPage />} />
-          <Route path="/:username1/:username2" element={<ChatPage/>} />
+          <Route path="/chat/:username2" element={<ChatPage/>} />
           {/* <Route path="/registerpage" element={<RegisterPage />} /> */}
         </Routes>
       </div>

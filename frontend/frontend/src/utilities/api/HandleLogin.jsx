@@ -9,21 +9,26 @@ const handleLogin = async (e, email, password, navigate) => {
       email,
       password,
     }, {
-      withCredentials: true, // Send credentials with the request
+      withCredentials: true, 
     });
-
-    // Extract tokens from response
     console.log(response.data);
     const refreshToken = response.data['refresh-token'];
     const accessToken = response.data['access-token'];
+    const username = response.data['username'];
     Cookies.set('accessToken', accessToken, {
-      expires: 1,          // Cookie expiration in days (1 day)
-      path: '/',           // Available across the entire site
-      sameSite: 'Lax',     // Prevent CSRF attacks, adjust based on your requirements
-      secure: true,        // Set to true if using HTTPS
+      expires: 1,         
+      path: '/',           
+      sameSite: 'Lax',     
+      secure: true,        
     });
 
     Cookies.set('refreshToken', refreshToken, {
+      expires: 7,          // Typically, refresh tokens last longer (e.g., 7 days)
+      path: '/',           // Available across the entire site
+      sameSite: 'Lax',
+      secure: true,        // Set to true if using HTTPS
+    });
+    Cookies.set('username', username, {
       expires: 7,          // Typically, refresh tokens last longer (e.g., 7 days)
       path: '/',           // Available across the entire site
       sameSite: 'Lax',

@@ -1,9 +1,12 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
+import Cookies from 'js-cookie';
+import fetchUserDetails from '../../utilities/api/FetchUserDetails';
 
 function ChatPage() {
-  const {username1, username2} = useParams();
+  const {username2} = useParams();
+  const username1 = Cookies.get('username');
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState('');
   const chatMessagesRef = useRef(null);
@@ -12,6 +15,20 @@ function ChatPage() {
   const typingTimeoutRef = useRef(null);
   const unsavedMessagesRef = useRef([]);
   const unsavedMessagesIntervalRef = useRef(null);
+
+  useEffect(() => {
+
+    // Fetch user details to get the profile picture
+    const getUserDetails = async () => {
+      const userDetails = await fetchUserDetails();
+      console.log(userDetails);
+      if (userDetails) {
+        setUsername1(userDetails.username);
+      }
+    };
+
+    getUserDetails();
+  }, []);
 
   const initializeWebSocket = () => {
     const protocol = window.location.protocol === 'https:' ? 'wss' : 'ws';
@@ -79,7 +96,14 @@ function ChatPage() {
               room: `chat_${[username1, username2].sort().join('_')}`,
               time_added: new Date().toISOString(),
             };
-            await axios.post(`http://127.0.0.1:8000/chats/store/`, messageData2);
+            await axios.post(`http://127.0.0.1:8000/chats/store/`, messageData2,
+              {
+                headers: {
+                  'Content-Type': 'application/json',
+                  'Authorization': `Bearer ${Cookies.get('accessToken')}`,
+                },
+              }
+            );
           })
         );
         unsavedMessagesRef.current = []; // Clear after successful save
@@ -127,7 +151,7 @@ function ChatPage() {
   const handleDeleteMessages = async () => {
     const roomName = `chat_${[username1, username2].sort().join('_')}`;
     try {
-      await axios.delete(`http://127.0.0.1:8000/chats/dm/${roomName}/`);
+      await axios.delete(`http://127.0.0.1:8000/chats/${roomName}/`);
       setMessages([]); // Clear the chat in the frontend
     } catch (error) {
       console.error('Error deleting messages:', error);
@@ -165,9 +189,9 @@ function ChatPage() {
   }, []);
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-blue-500 to-indigo-600">
+    <div className="min-h-screen flex flex-col items-center justify-center">
       <div className="p-10 lg:p-20 text-center">
-        <h1 className="text-4xl lg:text-5xl text-white font-bold">
+        <h1 className="text-4xl lg:text-5xl text-black font-bold">
           Chat with {username2}
         </h1>
       </div>
@@ -185,7 +209,7 @@ function ChatPage() {
                   : 'bg-gray-200 text-black self-start'
               } rounded-lg p-3 max-w-xs lg:max-w-md break-words`}
             >
-              <b>{msg.user ? msg.user : msg.username}</b>:  {msg.body ? msg.body : msg.content}
+              <b>{msg.username}</b>:  {msg.body ? msg.body : msg.content}
             </div>
           ))}
         </div>
