@@ -1,12 +1,11 @@
 import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
-import LoginPage from './pages/auth/LoginPage';
-import Homepage from './pages/auth/Homepage';
 import Navbar from './utilities/components/Navbar';
 import LeftMenu from './utilities/components/LeftMenu';
 import MainContent from './pages/MainContent';
 import RightPanel from './utilities/components/Rightpanel';
 import Footer from './utilities/components/Footer';
+import NavbarAuth from './utilities/components/Navbar-auth';
 
 function App() {
   return (
@@ -48,7 +47,7 @@ function AppContent() {
     };
   }, []);
 
-  const isAuthPage = location.pathname === '/loginpage/' || location.pathname === '/registerpage' || location.pathname === '/loginpage';
+  const isAuthPage = location.pathname === '/loginpage' || location.pathname === '/registerpage';
 
   return (
     <div className="w-full h-full overflow-hidden">
@@ -75,7 +74,10 @@ function AppContent() {
           </div>
         </div>
       ) : (
-        <MainContent />
+        <div>
+          <NavbarAuth />
+          <MainContent />
+        </div>
       )}
     </div>
   );

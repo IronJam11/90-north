@@ -11,9 +11,9 @@ function LoginPage() {
   // Typing animation effect
   useEffect(() => {
     const phrases = [
-      'Manage assignments',
-      'Achieve weekly goals',
-      'Collaborate with your group',
+      'Chat effortlessly',
+      'End to end encrypted messages',
+      'Share ideas',
     ];
 
     let currentPhraseIndex = 0;
