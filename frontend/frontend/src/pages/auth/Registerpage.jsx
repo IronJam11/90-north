@@ -22,7 +22,7 @@ function RegisterPage() {
     formData.append('password', password);
     formData.append('bio', bio);
     if (profilePhoto) {
-      formData.append('profile_photo', profilePhoto);
+      formData.append('profile_picture', profilePhoto);
     }
 
     try {

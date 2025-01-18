@@ -36,7 +36,7 @@ const handleLogin = async (e, email, password, navigate) => {
     });
     navigate('/');
   } catch (error) {
-    // alert("Invalid credentials!!!");
+    alert("Invalid credentials!!!");
     console.error('Error during login:', error);
   }
 };

@@ -34,7 +34,7 @@ export default function Navbar() {
           {/* Show Profile Picture if available */}
           {profilePicture && (
             <img
-              src={`http://127.0.0.1:8000/${userData.profile_picture}`}
+              src={`http://127.0.0.1:8000${profilePicture}`}
               alt="Profile"
               className="w-10 h-10 rounded-full border border-white-300"
             />

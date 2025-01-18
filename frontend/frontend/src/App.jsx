@@ -54,30 +54,22 @@ function AppContent() {
     <div className="w-full h-full overflow-hidden">
       {!isAuthPage ? (
         <div className="flex flex-col h-screen">
-          {/* Navbar */}
           <div className="fixed top-0 left-0 right-0 h-20 bg-white shadow-md">
             <Navbar />
           </div>
-
-          {/* Content Container */}
           <div className="flex flex-1 pt-20 pb-16 overflow-hidden">
-            {/* Left Menu */}
             <div className="fixed top-20 left-0 bottom-16 w-64 ">
               <LeftMenu />
             </div>
 
-            {/* Main Content */}
             <div className="flex-1 ml-30 mr-70 pt-4 pb-4 overflow-auto">
               <MainContent />
             </div>
 
-            {/* Right Panel */}
             <div className="fixed top-24 right-4 bottom-16 w-72 bg-gray-200">
               <RightPanel />
             </div>
           </div>
-
-          {/* Footer - Now extends full width */}
           <div className="fixed bottom-0 left-0 right-0 h-16 bg-white border-t">
             <Footer />
           </div>

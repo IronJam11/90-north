@@ -19,6 +19,7 @@ export const handleLogout = async (navigate) => {
     Cookies.remove('accessToken'); 
     Cookies.remove('refreshToken');
     Cookies.remove('jwt');
+    Cookies.remove('username');
     alert("You have successfully logged out!");
     navigate('/loginpage');
 
