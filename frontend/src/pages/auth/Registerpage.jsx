@@ -11,42 +11,43 @@ function RegisterPage() {
   const [profilePhoto, setProfilePhoto] = useState(null);
   const [displayText, setDisplayText] = useState('');
   const navigate = useNavigate();
+
   useEffect(() => {
-      const phrases = [
-        'Chat effortlessly',
-        'End to end encrypted messages',
-        'Share ideas',
-      ];
-  
-      let currentPhraseIndex = 0;
-      let currentCharIndex = 0;
-      let isDeleting = false;
-  
-      const typeEffect = () => {
-        const currentPhrase = phrases[currentPhraseIndex];
-  
-        if (!isDeleting) {
-          if (currentCharIndex < currentPhrase.length) {
-            setDisplayText(currentPhrase.slice(0, currentCharIndex + 1));
-            currentCharIndex++;
-          } else {
-            isDeleting = true;
-            setTimeout(() => {}, 1500);
-          }
+    const phrases = [
+      'Chat effortlessly',
+      'End to end encrypted messages',
+      'Share ideas',
+    ];
+
+    let currentPhraseIndex = 0;
+    let currentCharIndex = 0;
+    let isDeleting = false;
+
+    const typeEffect = () => {
+      const currentPhrase = phrases[currentPhraseIndex];
+
+      if (!isDeleting) {
+        if (currentCharIndex < currentPhrase.length) {
+          setDisplayText(currentPhrase.slice(0, currentCharIndex + 1));
+          currentCharIndex++;
         } else {
-          if (currentCharIndex > 0) {
-            setDisplayText(currentPhrase.slice(0, currentCharIndex - 1));
-            currentCharIndex--;
-          } else {
-            isDeleting = false;
-            currentPhraseIndex = (currentPhraseIndex + 1) % phrases.length;
-          }
+          isDeleting = true;
+          setTimeout(() => {}, 1500);
         }
-      };
-  
-      const interval = setInterval(typeEffect, 100);
-      return () => clearInterval(interval);
-    }, []);
+      } else {
+        if (currentCharIndex > 0) {
+          setDisplayText(currentPhrase.slice(0, currentCharIndex - 1));
+          currentCharIndex--;
+        } else {
+          isDeleting = false;
+          currentPhraseIndex = (currentPhraseIndex + 1) % phrases.length;
+        }
+      }
+    };
+
+    const interval = setInterval(typeEffect, 100);
+    return () => clearInterval(interval);
+  }, []);
 
   const handleRegister = async (e) => {
     e.preventDefault();
@@ -80,9 +81,9 @@ function RegisterPage() {
 
   return (
     <div className="min-h-screen">
-      <div className="flex flex-col items-center justify-center min-h-screen ">
-        <div className="w-full max-w-md p-8 space-y-6 bg-white shadow-lg rounded-lg">
-        <h1 className="text-3xl font-semibold text-center text-gray-800 mb-6 animate-pulse">{displayText}</h1>
+      <div className="flex flex-col items-center justify-center min-h-screen">
+        <div className="w-full max-w-xl p-10 space-y-6 bg-white shadow-lg rounded-lg">
+          <h1 className="text-3xl font-semibold text-center text-gray-800 mb-6 animate-pulse">{displayText}</h1>
           <form onSubmit={handleRegister} className="space-y-4">
             <div>
               <label className="block text-sm font-medium text-gray-700">Username</label>

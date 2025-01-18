@@ -47,8 +47,8 @@ function LoginPage() {
   }, []);
 
   return (
-    <div className="min-h-screen flex items-center justify-center  ">
-      <div className="w-full max-w-md p-8 bg-white rounded-lg shadow-lg animate-fadeIn">
+    <div className="min-h-screen flex items-center justify-center">
+      <div className="w-full max-w-xl p-10 bg-white rounded-lg shadow-lg animate-fadeIn">
         <h1 className="text-3xl font-semibold text-center text-gray-800 mb-6 animate-pulse">{displayText}</h1>
         
         <form onSubmit={(e) => handleLogin(e, email, password, navigate)} className="space-y-4">
