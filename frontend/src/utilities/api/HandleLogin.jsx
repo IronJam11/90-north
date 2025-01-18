@@ -1,11 +1,11 @@
 import React from "react";
 import axios from 'axios';
 import Cookies from 'js-cookie';
-
+import { HOST_NAME } from '../../constants/hostname';
 const handleLogin = async (e, email, password, navigate) => {
   e.preventDefault();
   try {
-    const response = await axios.post('http://127.0.0.1:8000/users/login/', {
+    const response = await axios.post(`${HOST_NAME}users/login/`, {
       email,
       password,
     }, {

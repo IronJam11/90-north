@@ -1,13 +1,13 @@
 import axios from 'axios';
 import Cookies from 'js-cookie'
-
+import { HOST_NAME } from '../../constants/hostname';
 export const handleLogout = async (navigate) => {
 
     const refreshToken = Cookies.get('refreshToken');
 
   try {
     // Send the refresh token in the body for logout
-    const response = await axios.post('http://127.0.0.1:8000/users/logout/', {
+    const response = await axios.post(`${HOST_NAME}users/logout/`, {
       refresh_token: refreshToken 
     }, {
       withCredentials: true,

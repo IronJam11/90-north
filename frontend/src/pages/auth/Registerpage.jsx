@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { HOST_NAME } from '../../constants/hostname';
 
 function RegisterPage() {
   const [username, setUsername] = useState('');
@@ -64,7 +65,7 @@ function RegisterPage() {
     }
 
     try {
-      const response = await axios.post('http://127.0.0.1:8000/users/register/', formData, {
+      const response = await axios.post(`${HOST_NAME}users/register/`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },

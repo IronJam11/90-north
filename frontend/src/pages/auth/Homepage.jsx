@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import Cookies from 'js-cookie'
+import { HOST_NAME } from '../../constants/hostname';
 
 export default function Homepage() {
   const [userData, setUserData] = useState(null);
@@ -8,7 +9,11 @@ export default function Homepage() {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    axios.get('http://127.0.0.1:8000/users/user-details/',{
+    if(Cookies.get('accessToken') == null) {
+      alert("You session timed out or you did not login. Please login again.");
+      window.location.href = '/loginpage';
+    }
+    axios.get(`${HOST_NAME}/users/user-details/`,{
       withCredentials: true,
       headers: {
         'Authorization': `Bearer ${Cookies.get('accessToken')}`,
@@ -45,7 +50,7 @@ export default function Homepage() {
       <div className="bg-white shadow-lg rounded-lg overflow-hidden">
         <div className="flex items-center p-6">
           <img
-            src={userData.profile_picture ? `http://127.0.0.1:8000${userData.profile_picture}`: 'https://cdn-icons-png.flaticon.com/512/17/17004.png'}
+            src={userData.profile_picture ? `${HOST_NAME}${userData.profile_picture}`: 'https://cdn-icons-png.flaticon.com/512/17/17004.png'}
             alt="Profile"
             className="w-32 h-32 rounded-full border-4 border-gray-200"
           />

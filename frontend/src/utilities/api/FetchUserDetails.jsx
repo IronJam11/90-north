@@ -1,10 +1,11 @@
 import React from "react";
 import axios from 'axios';
 import Cookies from 'js-cookie';
+import { HOST_NAME } from '../../constants/hostname';
 
 const fetchUserDetails = async () => {
   try {
-    const response = await axios.get('http://127.0.0.1:8000/users/user-details/', {
+    const response = await axios.get(`${HOST_NAME}users/user-details/`, {
       withCredentials: true, // Send credentials with the request
       headers: {
         'Authorization': `Bearer ${Cookies.get('accessToken')}`,

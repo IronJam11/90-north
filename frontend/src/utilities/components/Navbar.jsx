@@ -3,6 +3,7 @@ import fetchUserDetails from "../api/FetchUserDetails";
 import handleLogout from "../api/handleLogout";
 import { useNavigate } from 'react-router-dom';
 import FetchAllUsers from "../api/AllUsers";
+import { HOST_NAME } from "../../constants/hostname";
 
 
 export default function Navbar() {
@@ -34,7 +35,7 @@ export default function Navbar() {
           {/* Show Profile Picture if available */}
           {profilePicture && (
             <img
-              src={profilePicture ? `http://127.0.0.1:8000${profilePicture}`: 'https://cdn-icons-png.flaticon.com/512/17/17004.png'}
+              src={profilePicture ? `${HOST_NAME}${profilePicture}`: 'https://cdn-icons-png.flaticon.com/512/17/17004.png'}
               alt="Profile"
               className="w-10 h-10 rounded-full border border-white-300"
             />

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import FetchAllUsers from '../api/AllUsers';
-
+import { HOST_NAME } from '../../constants/hostname';
 export default function LeftMenu() {
   const [isOpen, setIsOpen] = useState(false);
   const [allUsersData, setAllUsersData] = useState([]);
@@ -43,7 +43,7 @@ export default function LeftMenu() {
                   <img
                     src={
                       user.profile_picture
-                        ? `http://127.0.0.1:8000${user.profile_picture}`
+                        ? `${HOST_NAME}${user.profile_picture}`
                         : 'https://cdn-icons-png.flaticon.com/512/17/17004.png'
                     }
                     alt="Profile"

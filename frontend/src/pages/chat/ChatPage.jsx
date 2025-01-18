@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import Cookies from 'js-cookie';
 import fetchUserDetails from '../../utilities/api/FetchUserDetails';
-
+import { HOST_NAME } from '../../constants/hostname';
 function ChatPage() {
   const { username2 } = useParams();
   const username1 = Cookies.get('username');
@@ -67,7 +67,7 @@ function ChatPage() {
   const fetchMessages = async () => {
     const roomName = `chat_${[username1, username2].sort().join('_')}`;
     try {
-      const response = await axios.get(`http://127.0.0.1:8000/chats/get/${roomName}/`);
+      const response = await axios.get(`${HOST_NAME}chats/get/${roomName}/`);
       setMessages(response.data.messages);
 
       if (chatMessagesRef.current) {
@@ -101,7 +101,7 @@ function ChatPage() {
                 time_added: new Date().toISOString(),
               };
 
-              await axios.post(`http://127.0.0.1:8000/chats/store/`, messageData2, {
+              await axios.post(`${HOST_NAME}chats/store/`, messageData2, {
                 headers: {
                   'Content-Type': 'application/json',
                   'Authorization': `Bearer ${Cookies.get('accessToken')}`,
@@ -159,7 +159,7 @@ function ChatPage() {
   const handleDeleteMessages = async () => {
     const roomName = `chat_${[username1, username2].sort().join('_')}`;
     try {
-      await axios.delete(`http://127.0.0.1:8000/chats/delete/${roomName}/`);
+      await axios.delete(`${HOST_NAME}chats/delete/${roomName}/`);
       setMessages([]); // Clear the chat in the frontend
     } catch (error) {
       console.error('Error deleting messages:', error);
