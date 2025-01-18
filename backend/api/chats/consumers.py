@@ -21,12 +21,12 @@ class ChatConsumer(AsyncWebsocketConsumer):
             self.username2 = self.scope['url_route']['kwargs']['username2']
             print(f"Usernames: username1={self.username1}, username2={self.username2}")
 
-            # Sort usernames alphabetically to create a unique room group name
+ 
             self.room_name = f'{min(self.username1, self.username2)}_{max(self.username1, self.username2)}'
             self.room_group_name = f'chat_{self.room_name}'
             print(f"Room name: {self.room_name}, Room group name: {self.room_group_name}")
 
-            # Join room group
+    
             await self.channel_layer.group_add(
                 self.room_group_name,
                 self.channel_name

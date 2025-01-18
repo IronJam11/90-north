@@ -28,8 +28,6 @@ def store_chat_message(request):
         room = data.get('room')
         username = user_details['username']
         body = data.get('body')
-
-        # Ensure all required fields are present
         if room and username and body:
             message = {
                 'username': username,
@@ -37,8 +35,7 @@ def store_chat_message(request):
                 'timestamp': time.time()
             }
             
-            # Encode the message to JSON and store it in Redis
-            redis_instance.lpush(room, json.dumps(message).encode('utf-8')) # Store the JSON string in Redis
+            redis_instance.lpush(room, json.dumps(message).encode('utf-8'))
             return JsonResponse({'message': 'Message stored successfully'})
         
         return HttpResponseBadRequest('Invalid data. Provide room, user, and body.')
@@ -48,12 +45,11 @@ def store_chat_message(request):
 
 @require_http_methods(["GET"])
 def get_chat_messages(request, room):
-    messages = redis_instance.lrange(room, 0, -1)  # Retrieve all messages from Redis
+    messages = redis_instance.lrange(room, 0, -1) 
     if messages:
-        # Decode each message from bytes to string and then parse as JSON
         return JsonResponse({
             'room': room,
-            'messages': [json.loads(m.decode('utf-8')) for m in reversed(messages)]  # Reverse the list order
+            'messages': [json.loads(m.decode('utf-8')) for m in reversed(messages)]
         })
     return JsonResponse({'message': 'No messages found'}, status=404)
 
@@ -62,12 +58,10 @@ def get_chat_messages(request, room):
 def delete_all_messages(request, room):
     # Check if the room exists in Redis
     if redis_instance.exists(room):
-        redis_instance.delete(room)  # Delete all messages in the room
-        
-        # Notify all users in the room about message deletion
+        redis_instance.delete(room)  
         channel_layer = get_channel_layer()
         async_to_sync(channel_layer.group_send)(
-            f'chat_{room}',  # Group name should match the room
+            f'chat_{room}', 
             {
                 'type': 'delete_messages_event',
                 'message': 'All messages have been deleted'
@@ -78,12 +72,11 @@ def delete_all_messages(request, room):
     
     return HttpResponseNotFound(f'Room "{room}" not found')
 
-# Optional: Function to get the latest N messages
+
 @require_http_methods(["GET"])
 def get_latest_messages(request, room, count=10):
-    messages = redis_instance.lrange(room, 0, count - 1)  # Retrieve the latest N messages
+    messages = redis_instance.lrange(room, 0, count - 1) 
     if messages:
-        # Decode each message from bytes to string and then parse as JSON
         return JsonResponse({
             'room': room,
             'messages': [json.loads(m.decode('utf-8')) for m in messages]
