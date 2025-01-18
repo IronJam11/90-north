@@ -84,7 +84,7 @@ To set up the application locally, follow the steps below:
 - **Frontend**: React + Vite, styled using Tailwind CSS
 - **Databases**:  
   - Redis (for message storage)  
-  - PostgreSQL (primary database in local setup; SQLite used in the provided codebase for deployment simplicity)
+  - SQLite used in the provided codebase for deployment simplicity)
 - **Real-Time Communication**: WebSockets for real-time messaging
 - **Authentication**: JWT (Access and Refresh Tokens) with browser-stored cookies
 
@@ -116,5 +116,7 @@ To set up the application locally, follow the steps below:
 
 - **WebSocket Functionality**: WebSocket support is unavailable on the free plan of PythonAnywhere, so real-time messaging features are not operational in the deployed version.
 - **Database**: While PostgreSQL is used locally, deployment issues led to SQLite being used in the codebase for simplicity. The SQLite database is included in the repository to provide dummy data for testing. (Which I know ideally goes into .gitignore)
+
+- Drive Link to show functionality : https://drive.google.com/file/d/1K4ygDlmkWpNyKsQ29SNb9EDVrqUk2oKc/view
 
 ---
