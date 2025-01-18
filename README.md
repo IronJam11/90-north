@@ -111,9 +111,6 @@ To set up the application locally, follow the steps below:
   URL: [90-North Assignment Frontend](https://90-north-assignment-kappa.vercel.app/loginpage)  
 - **Backend**: Deployed on PythonAnywhere.  
   URL: [Backend API](https://ironjam13.pythonanywhere.com/)  
-
-### Deployment Limitations
-
 - **WebSocket Functionality**: WebSocket support is unavailable on the free plan of PythonAnywhere, so real-time messaging features are not operational in the deployed version.
 - **Database**: While PostgreSQL is used locally, deployment issues led to SQLite being used in the codebase for simplicity. The SQLite database is included in the repository to provide dummy data for testing. (Which I know ideally goes into .gitignore)
 
