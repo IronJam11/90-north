@@ -19,7 +19,6 @@ def get_userdetails_from_token(token):
             "name":user.name,
             "date_joined":user.date_joined,
             "profile_picture": profile_picture_url
-
         }
         if user:
             return user_details

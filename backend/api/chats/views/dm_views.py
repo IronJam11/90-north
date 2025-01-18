@@ -8,6 +8,9 @@ from channels.layers import get_channel_layer
 from asgiref.sync import async_to_sync
 import time
 from api.models import User
+from api.users.utils import get_userdetails_from_token
+from rest_framework.response import Response
+from rest_framework import status
 
 redis_instance = redis.Redis(**settings.REDIS_CONFIG)
 
@@ -15,9 +18,15 @@ redis_instance = redis.Redis(**settings.REDIS_CONFIG)
 @require_http_methods(["POST"])
 def store_chat_message(request):
     try:
+        auth_header = request.headers.get('Authorization')
+        if auth_header is None or not auth_header.startswith('Bearer '):
+            return JsonResponse({"error": "Token not provided or incorrect format"}, status=status.HTTP_400_BAD_REQUEST)
+        token = auth_header.split(' ')[1] 
+        user_details = get_userdetails_from_token(token)
+        print("userdetails", user_details)
         data = json.loads(request.body)
         room = data.get('room')
-        username = data.get('username')
+        username = user_details['username']
         body = data.get('body')
 
         # Ensure all required fields are present
