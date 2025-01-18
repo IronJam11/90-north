@@ -1,80 +1,68 @@
-
-# 90-North-Assignment
+# 90-North Assignment
 
 ## Local Setup Instructions
 
-To set up the application locally, follow these steps:
+To set up the application locally, follow the steps below:
 
-1. Clone the repository:
+### Backend Setup
+
+1. **Clone the Repository**  
+   Clone the project repository to your local machine:
    ```bash
    git clone https://github.com/IronJam11/90-north-assignment.git
    ```
 
-2. Navigate to the backend directory:
+2. **Navigate to the Backend Directory**  
+   Change to the backend directory:
    ```bash
    cd backend
    ```
 
-3. Install the required Python dependencies:
+3. **Install Python Dependencies**  
+   Install the required Python packages:
    ```bash
    pip install -r requirements.txt
    ```
 
-4. Create a `.env` file in the backend directory with the following configuration:
-
-   ```ini
-   # Django Secret Key
-   SECRET_KEY=<secret-key>
-   
-   # Debug Mode
-   DEBUG=True
-
-   # Database Configuration
-   DB_NAME=<database-name(postgresql)>
-   DB_USER=<database-user>
-   DB_PASSWORD=<password>
-   DB_HOST=127.0.0.1
-   DB_PORT=5432
-
-   # Redis Configuration
-   REDIS_HOST=localhost
-   REDIS_PORT=6379
-   REDIS_DB=0
-
-   # JWT Token Configuration
-   JWT_ACCESS_TOKEN_LIFETIME=180  # in minutes
-   JWT_REFRESH_TOKEN_LIFETIME=1440  # in minutes (1 day)
-
-   # Frontend URL for CORS
-   FRONTEND_URL=http://localhost:5174
-   ```
-
-5. Apply migrations:
+4. **Make Migrations**
+   Install the required Python packages:
    ```bash
    python3 manage.py makemigrations
+   ```
+5. **Migrate**  
+   Install the required Python packages:
+   ```bash
    python3 manage.py migrate
    ```
-
-6. Start the Django development server:
+6. **Run the server locally**  
+   Install the required Python packages:
    ```bash
-   python3 manage.py runserver
+   python3 manage.py migrate
    ```
-
 ---
 
-## Frontend Setup
+### Frontend Setup
 
-1. Navigate to the frontend directory:
+1. **Navigate to the Frontend Directory**  
+   Change to the frontend directory:
    ```bash
    cd frontend/
    ```
 
-2. Install the necessary frontend dependencies:
+2. **Install Frontend Dependencies**  
+   Install the required Node.js packages:
    ```bash
    npm install
    ```
 
-3. Start the frontend development server:
+3. **Update Backend Hostname**  
+   Update the backend hostname in the file `frontend/src/constants/hostname.jsx` to:
+   ```javascript
+   export const HOST_NAME = 'http://127.0.0.1:8000';
+   ```
+
+4. **Start the Frontend Development Server**  
+   Launch the frontend server:
    ```bash
    npm run dev
    ```
@@ -83,28 +71,50 @@ To set up the application locally, follow these steps:
 
 ## Notes
 
-- You can register a dummy profile directly or create a user via the terminal for testing purposes.
-- Ensure PostgreSQL is set up locally as specified above.
-- Run the Redis Docker image to enable Redis functionality.
+- You can register a new user profile or use the provided dummy credentials for testing:
+  - **Email**: `aaryan@gmail.com`  
+  - **Password**: `jain`   (exactly why dbsqlite file not included in .gitignore - for only testing purposes)
+- Ensure PostgreSQL is installed and configured locally as per the environment variables.
 
 ---
 
 ## Technology Stack
 
-- **Backend**: Django
-- **Frontend**: React + Vite
-- **Databases**: Redis (for message storage), PostgreSQL (primary database)
-- **Real-time Communication**: WebSockets with ASGI server running on Daphne, integrated with Django Channels.
-- **Authentication**: JWT (Access and Refresh Tokens) stored as cookies in the browser.
+- **Backend**: Django with Django Channels (ASGI server powered by Daphne)
+- **Frontend**: React + Vite, styled using Tailwind CSS
+- **Databases**:  
+  - Redis (for message storage)  
+  - PostgreSQL (primary database in local setup; SQLite used in the provided codebase for deployment simplicity)
+- **Real-Time Communication**: WebSockets for real-time messaging
+- **Authentication**: JWT (Access and Refresh Tokens) with browser-stored cookies
 
 ---
 
 ## Features
 
-- **Real-time Communication**: Implemented WebSockets to enable real-time messaging using Django Channels and the ASGI server powered by Daphne.
-- **Custom User Model**: Developed a customized user model using Django's AbstractBaseUser to meet the specific needs of the application.
-- **Efficient Data Storage**: Leveraged Redis, a NoSQL database, to store messages efficiently, minimizing space usage.
-- **Frontend**: Built with React + Vite, styled using Tailwind CSS. Implemented all required JavaScript functions as per the problem statement.
-- **Authentication**: Utilized JWT tokens for secure authentication, with smooth login and logout functionality.
+1. **Real-Time Messaging**  
+   Implemented WebSockets using Django Channels to enable real-time communication.
+2. **Custom User Model**  
+   Built a custom user model using Django's `AbstractBaseUser` to cater to specific application requirements.
+3. **Efficient Message Storage**  
+   Leveraged Redis for efficient and lightweight message storage.
+4. **Frontend**  
+   Developed a dynamic and responsive frontend using React + Vite, with Tailwind CSS for styling.
+5. **Secure Authentication**  
+   Implemented JWT-based authentication for secure login and logout processes.
+
+---
+
+## Deployment
+
+- **Frontend**: Deployed on Vercel.  
+  URL: [90-North Assignment Frontend](https://90-north-assignment-kappa.vercel.app/loginpage)  
+- **Backend**: Deployed on PythonAnywhere.  
+  URL: [Backend API](https://ironjam13.pythonanywhere.com/)  
+
+### Deployment Limitations
+
+- **WebSocket Functionality**: WebSocket support is unavailable on the free plan of PythonAnywhere, so real-time messaging features are not operational in the deployed version.
+- **Database**: While PostgreSQL is used locally, deployment issues led to SQLite being used in the codebase for simplicity. The SQLite database is included in the repository to provide dummy data for testing. (Which I know ideally goes into .gitignore)
 
 ---
