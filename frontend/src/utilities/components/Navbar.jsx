@@ -27,12 +27,12 @@ export default function Navbar() {
   return (
     <nav className="fixed top-0 left-0 right-0 h-24 bg-gray-800 text-white shadow-lg z-50">
       <div className="flex justify-between items-center h-full px-4">
-        {/* Website Name */}
+
         <div className="text-xl font-bold">90 NORTH ASSIGNMENT WEBSITE</div>
 
-        {/* Profile Picture and Logout Button */}
+
         <div className="flex items-center space-x-4">
-          {/* Show Profile Picture if available */}
+         
           {profilePicture && (
             <img
               src={profilePicture ? `${HOST_NAME}${profilePicture}`: 'https://cdn-icons-png.flaticon.com/512/17/17004.png'}
@@ -41,7 +41,7 @@ export default function Navbar() {
             />
           )}
 
-          {/* Logout Button */}
+
           <button
             onClick={() => handleLogout(navigate)}
             className="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700"

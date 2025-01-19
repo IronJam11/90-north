@@ -19,25 +19,24 @@ def update_user_details(request):
             if auth_header is None or not auth_header.startswith('Bearer '):
                 return Response({"error": "Token not provided or incorrect format"}, status=status.HTTP_400_BAD_REQUEST)
 
-            token = auth_header.split(' ')[1]  # Get the token part after 'Bearer'
+            token = auth_header.split(' ')[1]
             
             user_details = get_user_from_access_token(token)
             enrollmentNo = user_details['enrollmentNo']
 
-            # Get the user associated with the enrollmentNo
             user = User.objects.get(enrollmentNo=enrollmentNo)
 
-            # Get the associated UserDetails
+
             user_details = UserDetails.objects.filter(user=user).first()
 
-            # Update the fields if they are provided in the request
+
 
             name = request.POST.get('name')
             alias = request.POST.get('alias')
             year = request.POST.get('year')
             email_host_password = request.POST.get('email_host_password')
             email_host_user = request.POST.get('email_host_user')
-            is_developer = request.POST.get('isDeveloper') == 'true'  # Convert to boolean
+            is_developer = request.POST.get('isDeveloper') == 'true'  
 
             if name:
                 user_details.name = name

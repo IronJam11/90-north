@@ -14,7 +14,6 @@ export default function MainContent() {
           <Route path="/loginpage" element={<LoginPage />} />
           <Route path="/registerpage" element={<RegisterPage />} />
           <Route path="/chat/:username2" element={<ChatPage />} />
-          {/* Catch-all route for invalid URLs */}
           <Route 
             path="*" 
             element={

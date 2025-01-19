@@ -23,16 +23,16 @@ const handleLogin = async (e, email, password, navigate) => {
     });
 
     Cookies.set('refreshToken', refreshToken, {
-      expires: 7,          // Typically, refresh tokens last longer (e.g., 7 days)
-      path: '/',           // Available across the entire site
+      expires: 7,        
+      path: '/',        
       sameSite: 'Lax',
-      secure: true,        // Set to true if using HTTPS
+      secure: true,      
     });
     Cookies.set('username', username, {
-      expires: 7,          // Typically, refresh tokens last longer (e.g., 7 days)
-      path: '/',           // Available across the entire site
+      expires: 7,          
+      path: '/',         
       sameSite: 'Lax',
-      secure: true,        // Set to true if using HTTPS
+      secure: true,   
     });
     navigate('/');
   } catch (error) {

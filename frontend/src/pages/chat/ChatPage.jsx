@@ -18,7 +18,6 @@ function ChatPage() {
   
 
   useEffect(() => {
-    // Fetch user details to get the profile picture
     if(Cookies.get('accessToken') == null) {
           alert("You session timed out or you did not login. Please login again.");
           window.location.href = '/loginpage';
@@ -158,7 +157,7 @@ function ChatPage() {
 
     typingTimeoutRef.current = setTimeout(() => {
       sendUnsavedMessages();
-    }, 500);  // Set the interval to 0.5 seconds (500 ms)
+    }, 500);  
   };
 
   const handleDeleteMessages = async () => {

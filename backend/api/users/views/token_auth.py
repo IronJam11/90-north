@@ -29,7 +29,7 @@ class TokenCheckView(APIView):
                 user = User.objects.get(id=decoded_access['user_id'])
                 print("Both are valid")
                 
-                # If access token is valid, return the tokens and user details
+       
                 return Response({
                     'valid': True,
                     'access_token': access_token,
@@ -41,12 +41,12 @@ class TokenCheckView(APIView):
                 })
 
             except jwt.ExpiredSignatureError:
-                # Access token is expired, proceed to check the refresh token
+              
                 try:
                     decoded_refresh = jwt.decode(refresh_token, settings.SECRET_KEY, algorithms=["HS256"])
                     user = User.objects.get(id=decoded_refresh['user_id'])
 
-                    # Generate a new access token since the refresh token is still valid
+             
                     new_access_token = AccessToken.for_user(user)
                     print("old token",access_token)
                     print("new token",new_access_token)
@@ -54,8 +54,8 @@ class TokenCheckView(APIView):
 
                     return Response({
                         'valid': True,
-                        'access_token': str(new_access_token),  # Send the new access token
-                        'refresh_token': refresh_token,  # Keep the old refresh token
+                        'access_token': str(new_access_token), 
+                        'refresh_token': refresh_token, 
                         'user': {
                             'id': user.id,
                             'email': user.email,
@@ -65,12 +65,12 @@ class TokenCheckView(APIView):
                     })
 
                 except (jwt.ExpiredSignatureError, jwt.DecodeError):
-                    # Both tokens are invalid
+           
                     print("both are valid tokens")
                     return Response({'valid': False, 'error': 'Both tokens are invalid.'}, status=status.HTTP_401_UNAUTHORIZED)
 
             except jwt.DecodeError:
-                # Access token is invalid but not expired
+
                 return Response({'valid': False, 'error': 'Invalid access token.'}, status=status.HTTP_401_UNAUTHORIZED)
 
         return Response({'valid': False, 'error': 'No token provided.'}, status=status.HTTP_401_UNAUTHORIZED)

@@ -21,7 +21,7 @@ export default function LeftMenu() {
 
   return (
     <>
-      {/* Sidebar */}
+
       <div
         className={`fixed top-24 bottom-0 left-0 h-full bg-gray-800 text-white shadow-lg transition-transform duration-300 
           w-64 ${isOpen ? 'translate-x-0' : '-translate-x-full'}`}
@@ -35,11 +35,11 @@ export default function LeftMenu() {
             </li>
             <br />
             <b>Chat with:</b>
-            {/* Map user data */}
+    
             {allUsersData.length > 0 ? (
               allUsersData.map((user, index) => (
                 <li key={index} className="flex items-center space-x-4">
-                  {/* Profile Picture */}
+
                   <img
                     src={
                       user.profile_picture
@@ -62,7 +62,7 @@ export default function LeftMenu() {
         </div>
       </div>
 
-      {/* Toggle Button */}
+
       <button
         onClick={() => setIsOpen(!isOpen)}
         className="fixed top-1/2 left-0 transform -translate-y-1/2 bg-gray-600 text-white p-3 rounded-r-md shadow-md z-50 

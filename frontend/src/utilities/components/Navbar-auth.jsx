@@ -3,10 +3,10 @@ import { useNavigate, useLocation } from 'react-router-dom';
 
 export default function NavbarAuth() {
   const navigate = useNavigate();
-  const location = useLocation(); // Get the current location
+  const location = useLocation(); 
 
-  const isLoginPage = location.pathname === '/loginpage'; // Check if it's the login page
-  const isRegisterPage = location.pathname === '/registerpage'; // Check if it's the register page
+  const isLoginPage = location.pathname === '/loginpage'; 
+  const isRegisterPage = location.pathname === '/registerpage';
 
   return (
     <nav className="fixed top-0 left-0 right-0 h-24 bg-gray-800 text-white shadow-lg z-50">

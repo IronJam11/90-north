@@ -118,3 +118,7 @@ To set up the application locally, follow the steps below:
 - **Database**: While PostgreSQL is used locally, deployment issues led to SQLite being used in the codebase for simplicity. The SQLite database is included in the repository to provide dummy data for testing. (Which I know ideally goes into .gitignore)
 
 ---
+
+## AWS 
+
+**Directory**:Check the directly AWS-lambda-code which contains the screenshots along with the code of the lambda function 
