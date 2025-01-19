@@ -37,7 +37,7 @@ To set up the application locally, follow the steps below:
 6. **Run the server locally**  
    Install the required Python packages:
    ```bash
-   python3 manage.py migrate
+   python3 manage.py runserver
    ```
 ---
 
@@ -74,7 +74,6 @@ To set up the application locally, follow the steps below:
 - You can register a new user profile or use the provided dummy credentials for testing:
   - **Email**: `aaryan@gmail.com`  
   - **Password**: `jain`   (exactly why dbsqlite file not included in .gitignore - for only testing purposes)
-- Ensure PostgreSQL is installed and configured locally as per the environment variables.
 
 ---
 
@@ -84,7 +83,7 @@ To set up the application locally, follow the steps below:
 - **Frontend**: React + Vite, styled using Tailwind CSS
 - **Databases**:  
   - Redis (for message storage)  
-  - PostgreSQL (primary database in local setup; SQLite used in the provided codebase for deployment simplicity)
+  - SQLite used in the provided codebase for deployment simplicity)
 - **Real-Time Communication**: WebSockets for real-time messaging
 - **Authentication**: JWT (Access and Refresh Tokens) with browser-stored cookies
 
@@ -111,14 +110,16 @@ To set up the application locally, follow the steps below:
   URL: [90-North Assignment Frontend](https://90-north-assignment-kappa.vercel.app/loginpage)  
 - **Backend**: Deployed on PythonAnywhere.  
   URL: [Backend API](https://ironjam13.pythonanywhere.com/)  
-
-### Deployment Limitations
-
 - **WebSocket Functionality**: WebSocket support is unavailable on the free plan of PythonAnywhere, so real-time messaging features are not operational in the deployed version.
-- **Database**: While PostgreSQL is used locally, deployment issues led to SQLite being used in the codebase for simplicity. The SQLite database is included in the repository to provide dummy data for testing. (Which I know ideally goes into .gitignore)
+
 
 ---
 
 ## AWS 
 
 **Directory**:Check the directly AWS-lambda-code which contains the screenshots along with the code of the lambda function 
+
+
+## Demo Video 
+
+**Link**: https://drive.google.com/file/d/1K4ygDlmkWpNyKsQ29SNb9EDVrqUk2oKc/view
