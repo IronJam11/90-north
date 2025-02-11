@@ -1,4 +1,4 @@
-# 90-North Assignment
+# 90-North
 
 ## Local Setup Instructions
 
